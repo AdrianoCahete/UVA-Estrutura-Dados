@@ -4,6 +4,11 @@
 #include <stdlib.h>
 
 // Configs
+#define INPUT_SELECTION_INSERT 1
+#define INPUT_SELECTION_CONSULT 2
+#define INPUT_SELECTION_CHANGE 3
+#define INPUT_SELECTION_REMOVE 4
+#define INPUT_SELECTION_LIST 5
 #define EXIT_INPUT_SELECTION 0
 
 // Estrutura do nó
@@ -44,56 +49,56 @@ int main()
     printf("\n---------------------------\n");
     printf("\nEscolha uma operacao:\n\n");
 
-    printf("[ 1 ] Inserir\n");
-    printf("[ 2 ] Consultar\n");
-    printf("[ 3 ] Alterar\n");
-    printf("[ 4 ] Remover\n");
-    printf("[ 5 ] Listar\n");
+    printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT);
+    printf("[ %d ] Consultar\n", INPUT_SELECTION_CONSULT);
+    printf("[ %d ] Alterar\n", INPUT_SELECTION_CHANGE);
+    printf("[ %d ] Remover\n", INPUT_SELECTION_REMOVE);
+    printf("[ %d ] Listar\n", INPUT_SELECTION_LIST);
 
     printf("\n[ %d ] Sair\n\n", EXIT_INPUT_SELECTION);
     printf("---------------------------\n\n");
     printf("[ ? ] Opcao: ");
     scanf("%d", &option);
-    printf("\n---------------------------\n");
+    printf("\n---------------------------\n\n");
 
     switch (option)
     {
-    case 1:
+    case INPUT_SELECTION_INSERT:
       printf("[ + ] Digite o valor a ser inserido: ");
       scanf("%d", &value);
       insert(&head, value);
       break;
 
-    case 2:
-      printf("[ * ] Constular ");
+    case INPUT_SELECTION_CONSULT:
+      printf("[ * ] Consultar ");
       scanf("%d", &value);
       // TODO: Buscar
       break;
 
-    case 3:
+    case INPUT_SELECTION_CHANGE:
       printf("[ * ] Alterar ");
       scanf("%d", &value);
       // TODO: Alterar
       break;
 
-    case 4:
+    case INPUT_SELECTION_REMOVE:
       printf("[ - ] Remover ");
       scanf("%d", &value);
       // TODO: Apagar
       break;
 
-    case 5:
+    case INPUT_SELECTION_LIST:
       printf("[ * ] Listar ");
       scanf("%d", &value);
       // TODO: Listar
       break;
 
     case EXIT_INPUT_SELECTION:
-      printf("\n[ * ] Saindo...\n");
+      printf("[ * ] Saindo...\n");
       break;
 
     default:
-      printf("\n[ ! ] Opcao invalida. Tente novamente.\n");
+      printf("[ ! ] Opcao invalida. Tente novamente.\n");
     }
 
   } while (option != EXIT_INPUT_SELECTION);
