@@ -2,21 +2,41 @@
   "tasks": [
     {
       "type": "cppbuild",
-      "label": "[C/C++] Build and debug",
+      "label": "[C/C++] Build current file",
       "command": "C:\\ProgramFiles\\MinGW\\bin\\gcc.exe",
       "args": [
         "-fdiagnostics-color=always",
         "-g",
         "${file}",
         "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+        "${fileDirname}\\bin\\${fileBasenameNoExtension}.exe"
       ],
       "options": {
         "cwd": "C:\\ProgramFiles\\MinGW\\bin"
       },
       "problemMatcher": ["$gcc"],
-      "group": "build"
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
     }
+    // {
+    //   "type": "cppbuild",
+    //   "label": "[C/C++] Build ava1-lista",
+    //   "command": "C:\\ProgramFiles\\MinGW\\bin\\gcc.exe",
+    //   "args": [
+    //     "-fdiagnostics-color=always",
+    //     "-g",
+    //     "${workspaceFolder}\\AV1\\AVA1\\ava1-lista.c",
+    //     "-o",
+    //     "$${workspaceFolder}\\AV1\\AVA1\\bin\\${fileBasenameNoExtension}.exe"
+    //   ],
+    //   "options": {
+    //     "cwd": "C:\\ProgramFiles\\MinGW\\bin"
+    //   },
+    //   "problemMatcher": ["$gcc"],
+    //   "detail": "compiler: C:\\ProgramFiles\\MinGW\\bin\\gcc.exe"
+    // }
   ],
   "version": "2.0.0"
 }
