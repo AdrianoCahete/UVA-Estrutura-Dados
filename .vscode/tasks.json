@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "[C/C++] Build and debug",
+      "command": "C:\\ProgramFiles\\MinGW\\bin\\gcc.exe",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g",
+        "${file}",
+        "-o",
+        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+      ],
+      "options": {
+        "cwd": "C:\\ProgramFiles\\MinGW\\bin"
+      },
+      "problemMatcher": ["$gcc"],
+      "group": "build"
+    }
+  ],
+  "version": "2.0.0"
+}
