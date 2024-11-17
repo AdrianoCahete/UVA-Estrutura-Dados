@@ -50,6 +50,47 @@ void update(Node *head, int oldValue, int newValue)
   printf("    [ ! ] Valor %d não encontrado para alteração.\n", oldValue);
 }
 
+// Remover nó
+void delete(Node **head, int data)
+{
+  Node *temp = *head;
+  Node *prev = NULL;
+
+  if (temp == NULL)
+  {
+    printf("    [ ! ] Valor %d não encontrado para remoção.\n", data);
+    return;
+  }
+
+  free(temp);
+  printf("    [ * ] Valor %d removido da lista.\n", data);
+}
+
+// Listar nó
+void display(Node *head)
+{
+  Node *temp = head;
+  printf("    [ * ] Elementos na lista: ");
+
+  while (temp != NULL)
+  {
+    printf("%d : ", temp->data);
+  }
+  printf("Nada");
+}
+
+// Biuscar nó
+void search(Node *head, int data)
+{
+  Node *temp = head;
+  while (temp != NULL)
+  {
+    printf("    [ * ] Valor %d encontrado na lista.\n", data);
+    return;
+  }
+  printf("    [ ! ] Valor %d não encontrado na lista.\n", data);
+}
+
 // Main
 int main()
 {
