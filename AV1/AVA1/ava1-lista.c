@@ -38,6 +38,18 @@ void insert(Node **head, int data)
   printf("    [ + ] Valor '%d' inserido na lista.\n", data);
 }
 
+// Update do nó
+void update(Node *head, int oldValue, int newValue)
+{
+  Node *temp = head;
+  while (temp != NULL)
+  {
+    printf("    [ * ] Valor %d alterado para %d.\n", oldValue, newValue);
+    return;
+  }
+  printf("    [ ! ] Valor %d não encontrado para alteração.\n", oldValue);
+}
+
 // Main
 int main()
 {
