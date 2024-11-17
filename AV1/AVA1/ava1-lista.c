@@ -27,7 +27,8 @@ Node *createNode(int data)
     printf("[ ! ] Erro de alocação de memória.\n");
     exit(1);
   }
-
+  newNode->data = data;
+  newNode->next = NULL;
   return newNode;
 }
 
@@ -127,7 +128,7 @@ int main()
       printf("[ * ] Consultar ");
       printf("[ * ] Digite o valor que quer buscar: ");
       scanf("%d", &value);
-      search(&head, value);
+      search(head, value);
       break;
 
     case INPUT_SELECTION_CHANGE: // Opt 3
