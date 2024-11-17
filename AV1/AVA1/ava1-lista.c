@@ -116,41 +116,40 @@ int main()
 
     switch (option)
     {
-    case INPUT_SELECTION_INSERT:
+    case INPUT_SELECTION_INSERT: // Opt 1
       printf("[ + ] Digite o valor a ser inserido: ");
       scanf("%d", &value);
       insert(&head, value);
       break;
 
-    case INPUT_SELECTION_CONSULT:
+    case INPUT_SELECTION_CONSULT: // Opt 2
       printf("[ * ] Consultar ");
       scanf("%d", &value);
-      // TODO: Buscar
+      search(&head, value);
       break;
 
-    case INPUT_SELECTION_CHANGE:
+    case INPUT_SELECTION_CHANGE: // Opt 3
       printf("[ * ] Alterar ");
       scanf("%d", &value);
       // TODO: Alterar
       break;
 
-    case INPUT_SELECTION_REMOVE:
+    case INPUT_SELECTION_REMOVE: // Opt 4
       printf("[ - ] Remover ");
       scanf("%d", &value);
-      // TODO: Apagar
+      delete (&head, value);
       break;
 
-    case INPUT_SELECTION_LIST:
+    case INPUT_SELECTION_LIST: // Opt 5
       printf("[ * ] Listar ");
-      scanf("%d", &value);
-      // TODO: Listar
+      display(head);
       break;
 
-    case EXIT_INPUT_SELECTION:
+    case EXIT_INPUT_SELECTION: // Opt 0
       printf("[ * ] Saindo...\n");
       break;
 
-    default:
+    default: // Opt 7 - ∞ (hehehe)
       printf("[ ! ] Opcao invalida. Tente novamente.\n");
     }
 
