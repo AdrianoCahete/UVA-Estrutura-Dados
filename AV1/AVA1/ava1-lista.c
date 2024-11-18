@@ -106,7 +106,7 @@ void delete(Node **head, int data)
 void display(Node *head)
 {
   Node *temp = head;
-  printf("    [ * ] Itens na lista: ");
+  printf("    [ * ] Itens na lista: "); // TODO: Checar se há itens na lista e dizer caso não haja.
 
   while (temp != NULL)
   {
@@ -133,6 +133,7 @@ void search(Node *head, int data)
   printf("    [ ! ] Valor '%d' nao encontrado na lista.\n", data);
 }
 
+// Checar se existe
 int exists(Node *head, int value)
 {
   Node *temp = head;
@@ -148,7 +149,6 @@ int exists(Node *head, int value)
   return 0;
 }
 
-// Main
 int main()
 {
   Node *head = NULL;
@@ -156,7 +156,7 @@ int main()
 
   do
   {
-    printf("\n---------------------------\n");
+    printf("\n-------------------------------------------------------\n");
     printf("\nEscolha uma operacao:\n\n");
 
     printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT); // Op 1
@@ -166,7 +166,7 @@ int main()
     printf("[ %d ] Listar\n", INPUT_SELECTION_LIST);    // Op 5
 
     printf("\n[ %d ] Sair\n\n", EXIT_INPUT_SELECTION); // Op 0
-    printf("---------------------------\n\n");
+    printf("\n-------------------------------------------------------\n");
 
     printf("[ ? ] Opcao: ");
 
@@ -179,11 +179,11 @@ int main()
     }
     else if (option < EXIT_INPUT_SELECTION || option > INPUT_SELECTION_LIST)
     {
-      printf("[ ! ] Selecione uma oppcao valida (entre %d - %d).\n", EXIT_INPUT_SELECTION, INPUT_SELECTION_LIST);
+      printf("[ ! ] Selecione uma opcao valida (entre %d - %d).\n", EXIT_INPUT_SELECTION, INPUT_SELECTION_LIST);
       option = -1;
     }
 
-    switch (option) // TODO: Adicionar validação das entradas?
+    switch (option)
     {
     case INPUT_SELECTION_INSERT: // Opt 1
       printf("[ + ] Adicionar \n");
@@ -201,7 +201,7 @@ int main()
 
     case INPUT_SELECTION_CHANGE: // Opt 3
       printf("[ * ] Alterar \n");
-      printf("[ * ] Estes são os valores atuais: ");
+      printf("[ * ] Estes sao os valores atuais\n");
       display(head);
       printf("[ * ] Digite o valor que quer alterar: ");
       scanf("%d", &value);
