@@ -1,3 +1,12 @@
 {
-  "recommendations": ["ms-vscode.cpptools", "ms-vscode.cpptools-themes"]
+  "recommendations": [
+    "ms-vscode.cpptools",
+    "ms-vscode.cpptools-themes",
+    "gruntfuggly.todo-tree",
+    "joshbolduc.commitlint",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-vscode.cpptools-extension-pack"
+  ]
 }
