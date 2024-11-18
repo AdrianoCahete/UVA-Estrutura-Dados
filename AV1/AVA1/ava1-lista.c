@@ -59,7 +59,7 @@ void update(Node *head, int oldValue, int newValue)
   Node *temp = head;
   while (temp != NULL)
   {
-    if (temp->data == oldValue) // TODO: verificar se tenho como colar o while e o if no mesmo item
+    if (temp->data == oldValue)
     {
       temp->data = newValue;
       printf("    [ * ] Valor '%d' alterado para '%d'.\n", oldValue, newValue);
@@ -120,8 +120,12 @@ void search(Node *head, int data)
   Node *temp = head;
   while (temp != NULL)
   {
-    printf("    [ * ] Valor '%d' encontrado na lista.\n", data);
-    return;
+    if (temp->data == data)
+    {
+      printf("    [ * ] Valor '%d' encontrado na lista.\n", data);
+      return;
+    }
+    temp = temp->next;
   }
   printf("    [ ! ] Valor '%d' nao encontrado na lista.\n", data);
 }
