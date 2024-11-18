@@ -159,13 +159,13 @@ int main()
     printf("\n---------------------------\n");
     printf("\nEscolha uma operacao:\n\n");
 
-    printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT);
-    printf("[ %d ] Buscar\n", INPUT_SELECTION_SEARCH);
-    printf("[ %d ] Alterar\n", INPUT_SELECTION_CHANGE);
-    printf("[ %d ] Remover\n", INPUT_SELECTION_REMOVE);
-    printf("[ %d ] Listar\n", INPUT_SELECTION_LIST);
+    printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT); // Op 1
+    printf("[ %d ] Buscar\n", INPUT_SELECTION_SEARCH);  // Op 2
+    printf("[ %d ] Alterar\n", INPUT_SELECTION_CHANGE); // Op 3
+    printf("[ %d ] Remover\n", INPUT_SELECTION_REMOVE); // Op 4
+    printf("[ %d ] Listar\n", INPUT_SELECTION_LIST);    // Op 5
 
-    printf("\n[ %d ] Sair\n\n", EXIT_INPUT_SELECTION);
+    printf("\n[ %d ] Sair\n\n", EXIT_INPUT_SELECTION); // Op 0
     printf("---------------------------\n\n");
 
     printf("[ ? ] Opcao: ");
@@ -175,10 +175,12 @@ int main()
       printf("[ ! ] Entrada invalida. Digite um numero.\n");
       while (getchar() != '\n')
         ;
+      option = -1;
     }
     else if (option < EXIT_INPUT_SELECTION || option > INPUT_SELECTION_LIST)
     {
       printf("[ ! ] Selecione uma oppcao valida (entre %d - %d).\n", EXIT_INPUT_SELECTION, INPUT_SELECTION_LIST);
+      option = -1;
     }
 
     switch (option) // TODO: Adicionar validação das entradas?
