@@ -1,0 +1,48 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  AUTHOR_NAME: "Adriano-Cahete"
+  REPOSITORY_NAME: "${{ github.event.repository.name }}"
+  REPOSITORY_URL: "https://github.com/${{ github.repository }}"
+  BUILD_PATH: "${{ github.event.repository.name }}/AV1/AVA1/ava1-lista.c"
+  README_PATH: "README.md"
+  TIMESTAMP: ${{ steps.timestamp.outputs.timestamp }}
+  BUILD_DIR: "build"
+  EXECUTABLE_NAME: "ava1-lista.exe"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set Timestamp
+        id: timestamp
+        run: echo "::set-output name=timestamp::$(date +'%Y-%m-%d_%H-%M-%S')"
+
+      - name: Build
+        run: |
+          sudo apt-get install mingw-w64
+          mkdir -p $BUILD_DIR
+          x86_64-w64-mingw32-gcc "$BUILD_PATH" -o $BUILD_DIR/$EXECUTABLE_NAME
+
+      - name: Create repository link file
+        run: |
+          echo "$REPOSITORY_URL" > $BUILD_DIR/link-do-repositorio.url
+
+      - name: Create ZIP release file
+        run: |
+          zip "${REPOSITORY_NAME}__${AUTHOR_NAME}__${TIMESTAMP}.zip" $BUILD_DIR/$EXECUTABLE_NAME $BUILD_DIR/link-do-repositorio.url $README_PATH
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.timestamp.outputs.timestamp }}
+          assets: "${REPOSITORY_NAME}__${AUTHOR_NAME}__${TIMESTAMP}.zip"
