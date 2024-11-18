@@ -6,12 +6,11 @@ on:
   workflow_dispatch:
 
 env:
-  AUTHOR_NAME: "Adriano-Cahete"
+  AUTHOR_NAME: "${{ github.REPOSITORY_OWNER }}"
   REPOSITORY_NAME: "${{ github.event.repository.name }}"
   REPOSITORY_URL: "https://github.com/${{ github.repository }}"
   BUILD_PATH: "${{ github.event.repository.name }}/AV1/AVA1/ava1-lista.c"
   README_PATH: "README.md"
-  TIMESTAMP: ${{ steps.timestamp.outputs.timestamp }}
   BUILD_DIR: "build"
   EXECUTABLE_NAME: "ava1-lista.exe"
 
@@ -21,28 +20,45 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set Timestamp
         id: timestamp
-        run: echo "::set-output name=timestamp::$(date +'%Y-%m-%d_%H-%M-%S')"
+        run: |
+          timestamp=$(date +'%Y-%m-%d_%H-%M-%S')
+          echo "timestamp=$timestamp" >> $GITHUB_ENV
+
+      - name: Set up C compiler
+        run: sudo apt-get install -y mingw-w64
 
       - name: Build
         run: |
-          sudo apt-get install mingw-w64
           mkdir -p $BUILD_DIR
           x86_64-w64-mingw32-gcc "$BUILD_PATH" -o $BUILD_DIR/$EXECUTABLE_NAME
 
-      - name: Create repository link file
+      - name: Create repository link
         run: |
           echo "$REPOSITORY_URL" > $BUILD_DIR/link-do-repositorio.url
 
-      - name: Create ZIP release file
-        run: |
-          zip "${REPOSITORY_NAME}__${AUTHOR_NAME}__${TIMESTAMP}.zip" $BUILD_DIR/$EXECUTABLE_NAME $BUILD_DIR/link-do-repositorio.url $README_PATH
+  release:
+    runs-on: ubuntu-latest
+    needs: build
 
-      - name: Create Release
-        uses: ncipollo/release-action@v1
+    steps:
+      - name: Create zip release
+        run: |
+          zip -r ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}__${{ env.AUTHOR_NAME }}__${{ env.TIMESTAMP }}.zip ${{ github.workspace }}/$BUILD_DIR/$EXECUTABLE_NAME ${{ github.workspace }}/$BUILD_DIR/link-do-repositorio.url ${{ github.workspace }}/README.md
+
+      - name: Upload asset
+        uses: softprops/action-gh-release@v1
         with:
-          tag: ${{ steps.timestamp.outputs.timestamp }}
-          assets: "${REPOSITORY_NAME}__${AUTHOR_NAME}__${TIMESTAMP}.zip"
+          files: ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}__${{ env.AUTHOR_NAME }}__${{ env.TIMESTAMP }}.zip
+
+      - name: Create the Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.TIMESTAMP }}
+          release_name: ${{ env.TIMESTAMP }}
+          body: "Release generated automatically."
+          draft: false
+          prerelease: false
