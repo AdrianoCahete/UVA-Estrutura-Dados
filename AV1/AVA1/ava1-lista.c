@@ -9,6 +9,7 @@
 #define INPUT_SELECTION_CHANGE 3
 #define INPUT_SELECTION_REMOVE 4
 #define INPUT_SELECTION_LIST 5
+
 #define EXIT_INPUT_SELECTION 0
 
 // Estrutura do nó
@@ -166,9 +167,19 @@ int main()
 
     printf("\n[ %d ] Sair\n\n", EXIT_INPUT_SELECTION);
     printf("---------------------------\n\n");
+
     printf("[ ? ] Opcao: ");
-    scanf("%d", &option);
-    printf("\n---------------------------\n\n");
+
+    if (scanf("%d", &option) != 1)
+    {
+      printf("[ ! ] Entrada invalida. Digite um numero.\n");
+      while (getchar() != '\n')
+        ;
+    }
+    else if (option < EXIT_INPUT_SELECTION || option > INPUT_SELECTION_LIST)
+    {
+      printf("[ ! ] Selecione uma oppcao valida (entre %d - %d).\n", EXIT_INPUT_SELECTION, INPUT_SELECTION_LIST);
+    }
 
     switch (option) // TODO: Adicionar validação das entradas?
     {
@@ -223,7 +234,7 @@ int main()
       break;
 
     default: // Opt 7 - ∞ (hehehe)
-      printf("[ ! ] Opcao invalida. Tente novamente.\n");
+      printf("[ ! ] Tente novamente.\n");
     }
 
   } while (option != EXIT_INPUT_SELECTION);
