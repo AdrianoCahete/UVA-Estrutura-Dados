@@ -1,8 +1,10 @@
 {
+  "version": "2.0.0",
+
   "tasks": [
     {
-      "type": "cppbuild",
       "label": "[C/C++] Build current file",
+      "type": "cppbuild",
       "command": "C:\\ProgramFiles\\MinGW\\bin\\gcc.exe",
       "args": [
         "-fdiagnostics-color=always",
@@ -19,24 +21,20 @@
         "kind": "build",
         "isDefault": true
       }
+    },
+    {
+      "label": "[Release] Gera o zip de release/entrega",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-Command",
+        "& { Compress-Archive -Path .\\* -DestinationPath ${workspaceFolderBasename}__Adriano-Cahete.zip -Force; Invoke-Item . }"
+      ],
+      "group": {
+        "kind": "build"
+      },
+      "problemMatcher": []
     }
-    // {
-    //   "type": "cppbuild",
-    //   "label": "[C/C++] Build ava1-lista",
-    //   "command": "C:\\ProgramFiles\\MinGW\\bin\\gcc.exe",
-    //   "args": [
-    //     "-fdiagnostics-color=always",
-    //     "-g",
-    //     "${workspaceFolder}\\AV1\\AVA1\\ava1-lista.c",
-    //     "-o",
-    //     "$${workspaceFolder}\\AV1\\AVA1\\bin\\${fileBasenameNoExtension}.exe"
-    //   ],
-    //   "options": {
-    //     "cwd": "C:\\ProgramFiles\\MinGW\\bin"
-    //   },
-    //   "problemMatcher": ["$gcc"],
-    //   "detail": "compiler: C:\\ProgramFiles\\MinGW\\bin\\gcc.exe"
-    // }
-  ],
-  "version": "2.0.0"
+  ]
 }
