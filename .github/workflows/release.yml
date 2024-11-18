@@ -9,7 +9,7 @@ env:
   AUTHOR_NAME: "${{ github.REPOSITORY_OWNER }}"
   REPOSITORY_NAME: "${{ github.event.repository.name }}"
   REPOSITORY_URL: "https://github.com/${{ github.repository }}"
-  BUILD_PATH: "${{ github.event.repository.name }}/AV1/AVA1/ava1-lista.c"
+  BUILD_PATH: "AV1/AVA1/ava1-lista.c"
   README_PATH: "README.md"
   BUILD_DIR: "build"
   EXECUTABLE_NAME: "ava1-lista.exe"
