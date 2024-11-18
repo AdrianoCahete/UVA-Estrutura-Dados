@@ -47,12 +47,19 @@ jobs:
     steps:
       - name: Create zip release
         run: |
-          zip -r ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}__${{ env.AUTHOR_NAME }}__${{ env.TIMESTAMP }}.zip ${{ github.workspace }}/$BUILD_DIR/$EXECUTABLE_NAME ${{ github.workspace }}/$BUILD_DIR/link-do-repositorio.url ${{ github.workspace }}/README.md
+          ls -l ${{ github.workspace }}/${{ env.BUILD_DIR }}/${{ env.EXECUTABLE_NAME }}
+          ls -l ${{ github.workspace }}/${{ env.BUILD_DIR }}/link-do-repositorio.url
+          ls -l ${{ github.workspace }}/${{ env.README_PATH }}
+
+          zip -r ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}__${{ env.AUTHOR_NAME }}__${{ env.timestamp  }}.zip \
+          ${{ github.workspace }}/${{ env.BUILD_DIR }}/${{ env.EXECUTABLE_NAME }} \
+          ${{ github.workspace }}/${{ env.BUILD_DIR }}/link-do-repositorio.url \
+          ${{ github.workspace }}/${{ env.README_PATH }}
 
       - name: Upload asset
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}__${{ env.AUTHOR_NAME }}__${{ env.TIMESTAMP }}.zip
+          files: ${{ github.workspace }}/${{ env.REPOSITORY_NAME }}__${{ env.AUTHOR_NAME }}__${{ env.timestamp }}.zip
 
       - name: Create the Release
         uses: softprops/action-gh-release@v1

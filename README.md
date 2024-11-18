@@ -1,6 +1,6 @@
 # UVA - Estrutura de Dados
 
-## AVA1
+## [AV1] AVA1
 
 ### Compilar
 
@@ -12,12 +12,17 @@ Ou rodar a task `tasks: Run build task` no VSCode, usando o `gcc` como compilado
 
 ### Release automatizado
 
-Se confiar no repositório do GitHub e não tiver afim de compilar ou instalar o compilador:
+Só ir ali em Releases >
 
 #### Release automatizado, local
 
-Instale o [act](https://github.com/nektos/act).
+Se confiar no repositório do GitHub e não tiver afim de compilar ou instalar o compilador:
+Use o [act](https://github.com/nektos/act).
 
-## AVA2
+## [AV1] AVA2
+
+TBD
+
+## [AV2]
 
 TBD
