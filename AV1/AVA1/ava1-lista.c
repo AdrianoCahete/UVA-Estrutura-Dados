@@ -112,6 +112,8 @@ void display(Node *head)
     printf("%d, ", temp->data);
     temp = temp->next;
   }
+
+  printf("\n--------------------------------\n");
 }
 
 // Biuscar nó
@@ -128,6 +130,21 @@ void search(Node *head, int data)
     temp = temp->next;
   }
   printf("    [ ! ] Valor '%d' nao encontrado na lista.\n", data);
+}
+
+int exists(Node *head, int value)
+{
+  Node *temp = head;
+  while (temp != NULL)
+  {
+    if (temp->data == value)
+    {
+      return 1;
+    }
+    temp = temp->next;
+  }
+
+  return 0;
 }
 
 // Main
@@ -153,7 +170,7 @@ int main()
     scanf("%d", &option);
     printf("\n---------------------------\n\n");
 
-    switch (option)
+    switch (option) // TODO: Adicionar validação das entradas?
     {
     case INPUT_SELECTION_INSERT: // Opt 1
       printf("[ + ] Adicionar \n");
@@ -173,8 +190,14 @@ int main()
       printf("[ * ] Alterar \n");
       printf("[ * ] Estes são os valores atuais: ");
       display(head);
-      printf("[ * ] Digite o valor que quer alterar "); // TODO: Checar se o valor existe antes de pedir o novo
+      printf("[ * ] Digite o valor que quer alterar: ");
       scanf("%d", &value);
+
+      if (!exists(head, value))
+      {
+        printf("[ ! ] Valor '%d' nao encontrado.\n", value);
+        break;
+      }
 
       printf("[ * ] Digite o novo valor: ");
       scanf("%d", &newValue);
