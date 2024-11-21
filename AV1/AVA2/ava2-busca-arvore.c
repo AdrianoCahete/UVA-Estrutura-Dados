@@ -40,6 +40,25 @@ Node *createNode(int data)
   return newNode;
 }
 
+void insert(Node **head, int data)
+{
+  Node *newNode = createNode(data);
+  if (*head == NULL)
+  {
+    *head = newNode;
+  }
+  else
+  {
+    Node *temp = *head;
+    while (temp->next != NULL)
+    {
+      temp = temp->next;
+    }
+    temp->next = newNode;
+  }
+  printf("    [ * ] Valor '%d' inserido na lista.\n", data);
+}
+
 // Remover nó
 void delete(Node **head, int data)
 {
@@ -48,6 +67,16 @@ void delete(Node **head, int data)
 
 // Buuscar nó pre-ordem
 void searchPreOrder(Node *head, int data)
+{
+}
+
+// Buuscar nó pre-ordem
+void searchOrder(Node *head, int data)
+{
+}
+
+// Buuscar nó pre-ordem
+void searchPostOrder(Node *head, int data)
 {
 }
 
@@ -104,32 +133,32 @@ int main()
 
     case INPUT_SELECTION_REMOVE: // Opt 2
       printf("[ - ] Apagar \n");
-      printf("[ * ] Estes são os valores atuais: ");
-      display(head);
+      // printf("[ * ] Estes são os valores atuais: ");
+      // display(head); TODO: Add busca e listagem pra melhorar o DX/UX
       printf("[ - ] Digite o valor que quer apagar: ");
       scanf("%d", &value);
       delete (&head, value);
       break;
 
     case INPUT_SELECTION_SEARCH_PRE_ORDER: // Opt 3
-      printf("[ * ] Buscar \n");
+      printf("[ * ] Buscar PRÉ ORDEM \n");
       printf("[ * ] Digite o valor que quer buscar: ");
       scanf("%d", &value);
-      search(head, value);
+      searchPreOrder(head, value);
       break;
 
     case INPUT_SELECTION_SEARCH_ORDER: // Opt 4
-      printf("[ * ] Buscar \n");
+      printf("[ * ] Buscar EM ORDEM \n");
       printf("[ * ] Digite o valor que quer buscar: ");
       scanf("%d", &value);
-      search(head, value);
+      searchOrder(head, value);
       break;
 
     case INPUT_SELECTION_SEARCH_POST_ORDER: // Opt 5
-      printf("[ * ] Buscar \n");
+      printf("[ * ] Buscar PÓS ORDEM \n");
       printf("[ * ] Digite o valor que quer buscar: ");
       scanf("%d", &value);
-      search(head, value);
+      searchPostOrder(head, value);
       break;
 
     case EXIT_INPUT_SELECTION: // Opt 0
