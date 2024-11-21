@@ -124,7 +124,7 @@ int main()
       printf("[ + ] Adicionar \n");
       printf("[ + ] Digite o valor que quer adicionar: ");
       scanf("%d", &value);
-      insert(&head, value);
+      head = insert(head, value);
       break;
 
     case INPUT_SELECTION_REMOVE: // Opt 2
