@@ -4,17 +4,12 @@
 #include <stdlib.h>
 
 // Configs
-// Incluir nó
-// Remover nó
-// Buscar pré-ordem
-// Buscar em ordem
-// Buscar pós-ordem
 
-#define INPUT_SELECTION_INSERT            1
-#define INPUT_SELECTION_REMOVE            2
-#define INPUT_SELECTION_SEARCH_PRE_ORDER  3
-#define INPUT_SELECTION_SEARCH_ORDER      4
-#define INPUT_SELECTION_SEARCH_POST_ORDER 5
+#define INPUT_SELECTION_INSERT            1 // Incluir nó
+#define INPUT_SELECTION_REMOVE            2 // Remover nó
+#define INPUT_SELECTION_SEARCH_PRE_ORDER  3 // Buscar pré-ordem
+#define INPUT_SELECTION_SEARCH_ORDER      4 // Buscar em ordem
+#define INPUT_SELECTION_SEARCH_POST_ORDER 5 // Buscar pós-ordem
 
 #define EXIT_INPUT_SELECTION 0
 
@@ -22,7 +17,8 @@
 typedef struct Node
 {
   int data;
-  struct Node *next;
+  struct Node *left;
+  struct Node *right;
 } Node;
 
 // Cria um novo nó
@@ -35,28 +31,28 @@ Node *createNode(int data)
     exit(1);
   }
   newNode->data = data;
-  newNode->next = NULL;
+  newNode->left = NULL;
+  newNode->right = NULL;
 
   return newNode;
 }
 
-void insert(Node **head, int data)
+Node *insert(Node *head, int data)
 {
-  Node *newNode = createNode(data);
-  if (*head == NULL)
-  {
-    *head = newNode;
+  if (head == NULL) {
+      printf("    [ * ] Valor '%d' inserido na arvore.\n", data);
+      return createNode(data);
   }
-  else
-  {
-    Node *temp = *head;
-    while (temp->next != NULL)
-    {
-      temp = temp->next;
-    }
-    temp->next = newNode;
+
+  if (data < head->data) {
+      head->left = insert(head->left, data);
+  } else if (data > head->data) {
+      head->right = insert(head->right, data);
+  } else {
+    printf("    [ ! ] Valor '%d' ja existe na arvore.\n", data);
   }
-  printf("    [ * ] Valor '%d' inserido na lista.\n", data);
+
+  return head;
 }
 
 // Remover nó
