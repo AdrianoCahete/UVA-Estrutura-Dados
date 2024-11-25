@@ -88,8 +88,8 @@ Node *delete(Node *root, int data) {
 }
 
 // Buscar nó pre-ordem
-void searchPreOrder(Node *head, int data)
-{
+void searchPreOrder(Node *root) {
+  (printf("%d ", root -> data), searchPreOrder(root -> left), searchPreOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
 // Buscar nó pre-ordem
