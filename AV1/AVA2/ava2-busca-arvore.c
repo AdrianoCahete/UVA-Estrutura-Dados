@@ -1,4 +1,5 @@
 // Também disponivel em https://github.com/AdrianoCahete/UVA-Estrutura-Dados :)
+// Sim, copiado da AVA1, vou recriar do zero se já tenho a base, porque?
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,10 +45,10 @@ Node *insert(Node *head, int data)
       return createNode(data);
   }
 
-  if (data < head->data) {
-      head->left = insert(head->left, data);
-  } else if (data > head->data) {
-      head->right = insert(head->right, data);
+  if (data < head -> data) {
+      head -> left = insert(head -> left, data);
+  } else if (data > head -> data) {
+      head -> right = insert(head -> right, data);
   } else {
     printf("    [ ! ] Valor '%d' ja existe na arvore.\n", data);
   }
@@ -56,10 +57,37 @@ Node *insert(Node *head, int data)
 }
 
 // Remover nó
-void delete(Node **head, int data)
-{
-  printf("    [ * ] Valor '%d' removido da lista.\n", data);
+Node *delete(Node *root, int data) {
+  if (root == NULL) {
+      printf("[ ! ] Valor %d não encontrado.\n", data);
+      return NULL;
+  }
+
+  if (data < root -> data) {
+      root -> left = deleteNode(root -> left, data);
+  } else if (data > root -> data) {
+      root -> right = deleteNode(root -> right, data);
+  } else {
+      if (root -> left == NULL && root -> right == NULL) { // Caso 1: Nó folha
+          free(root);
+          root = NULL;
+      } else if (root -> left == NULL || root -> right == NULL) { // Caso 2: Um filho
+          Node *temp = root -> left ? root -> left : root -> right;
+          free(root);
+          root = temp;
+      } else { // Caso 3: Dois filhos
+          Node *temp = findMin(root -> right); // Encontra o sucessor
+          root -> data = temp -> data;
+          root -> right = deleteNode(root -> right, temp -> data);
+      }
+
+      printf("[ * ] Nó com valor %d removido.\n", data);
+  }
+
+  return root;
 }
+
+
 
 // Buuscar nó pre-ordem
 void searchPreOrder(Node *head, int data)
