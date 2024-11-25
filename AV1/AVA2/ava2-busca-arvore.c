@@ -22,8 +22,17 @@ typedef struct Node
   struct Node *right;
 } Node;
 
+// Utils
+Node *findMin(Node *root) {
+  while (root->left != NULL) {
+    root = root->left;
+  }
+
+  return root;
+}
+
 // Cria um novo nó
-Node *createNode(int data)
+Node *create(int data)
 {
   Node *newNode = (Node *)malloc(sizeof(Node));
   if (!newNode)
@@ -38,11 +47,12 @@ Node *createNode(int data)
   return newNode;
 }
 
+// Insere nó
 Node *insert(Node *root, int data)
 {
   if (root == NULL) {
     printf("    [ * ] Valor '%d' inserido na arvore.\n", data);
-    return createNode(data);
+    return create(data);
   }
 
   if (data < root -> data) {
@@ -56,10 +66,10 @@ Node *insert(Node *root, int data)
   return root;
 }
 
-// Remover nó
+// Remove nó
 Node *delete(Node *root, int data) {
   if (root == NULL) {
-      printf("[ ! ] Valor %d não encontrado.\n", data);
+      printf("[ ! ] Valor %d nao encontrado.\n", data);
       return NULL;
   }
 
@@ -75,7 +85,7 @@ Node *delete(Node *root, int data) {
           Node *temp = root -> left ? root -> left : root -> right;
           free(root);
           root = temp;
-      } else { // Caso 3: Dois filhos
+      } else {
           Node *temp = findMin(root -> right);
           root -> data = temp -> data;
           root -> right = delete(root -> right, temp -> data);
@@ -87,40 +97,29 @@ Node *delete(Node *root, int data) {
   return root;
 }
 
-
 // TODO: Refazer as buscas usando só uma função, parametrizada ou deixar cada um com o seu dominio? Fica aí a duvida.
-// Buscar nó pre-ordem
+// Busca pre-ordem
 void searchPreOrder(Node *root) {
   (printf("%d ", root -> data), searchPreOrder(root -> left), searchPreOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
-// Buscar nó em ordem
+// Busca ordem
 void searchOrder(Node *root) {
   (searchOrder(root -> left), printf("%d ", root -> data), searchOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
-// Buscar nó pós-ordem
+// Busca  pós-ordem
 void searchPostOrder(Node *root) {
   (searchPostOrder(root -> left), searchPostOrder(root -> right), printf("%d ", root -> data)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
-// Utils
-Node *findMin(Node *root) {
-  while (root->left != NULL) {
-    root = root->left;
-  }
-
-  return root;
-}
-
-
 int main()
 {
   Node *root = NULL;
-  int option, value, newValue;
+  int option, value;
 
   do {
-    printf("\n-------------------------------------------------------\n");
+    printf("\n- - - - - - - - - - - - - - - - - - - - - - - - - - -\n");
     printf("\nEscolha uma operacao:\n\n");
 
     printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT); // Op 1 - Incluir nó
@@ -150,44 +149,46 @@ int main()
 
     switch (option)
     {
-      // NOTE/TODO: Queria colcoar negrito em algumas coisas, mas tô no powershell e não funciona direito. Vejo depois (eu acho).
+      // NOTE/TODO: Queria colcoar negrito em algumas coisas, mas tô no powershell e nao funciona direito. Vejo depois (eu acho).
       // ("TODO" adicionado pra eu pdoer achar no addon de todos)
-      case INPUT_SELECTION_INSERT: // Opt 1
-        printf("[ + ] Adicionar \n");
+      case INPUT_SELECTION_INSERT: // Op 1
+        printf("\n[ + ] Adicionar\n");
         printf("[ + ] Digite o valor que quer adicionar: ");
         scanf("%d", &value);
         root = insert(root, value);
         break;
 
-      case INPUT_SELECTION_REMOVE: // Opt 2
-        printf("[ - ] Apagar\n");
-        // printf("[ * ] Estes são os valores atuais: ");
+      case INPUT_SELECTION_REMOVE: // Op 2
+        printf("\n[ - ] Apagar\n");
+        printf("[ * ] Estes são os valores atuais: ");
         // display(root); TODO: Add busca e listagem pra melhorar o DX/UX
-        printf("[ - ] Digite o valor que quer apagar: ");
+        searchOrder(root);
+        printf("\n[ - ] Digite o valor que quer apagar: ");
+        scanf("%d", &value);
         root = delete(root, value);
         break;
 
-      case INPUT_SELECTION_SEARCH_PRE_ORDER: // Opt 3
-        printf("[ * ] Buscar PRÉ ORDEM \n");
+      case INPUT_SELECTION_SEARCH_PRE_ORDER: // Op 3
+        printf("\n[ * ] Buscar PRE ORDEM \n");
         searchPreOrder(root);
         break;
 
-      case INPUT_SELECTION_SEARCH_ORDER: // Opt 4
-        printf("[ * ] Buscar EM ORDEM \n");
+      case INPUT_SELECTION_SEARCH_ORDER: // Op 4
+        printf("\n[ * ] Buscar EM ORDEM \n");
         searchOrder(root);
         break;
 
-      case INPUT_SELECTION_SEARCH_POST_ORDER: // Opt 5
-        printf("[ * ] Buscar PÓS ORDEM \n");
+      case INPUT_SELECTION_SEARCH_POST_ORDER: // Op 5
+        printf("\n[ * ] Buscar POS ORDEM \n");
         searchPostOrder(root);
         break;
 
-      case EXIT_INPUT_SELECTION: // Opt 0
-        printf("[ * ] Saindo...\n");
+      case EXIT_INPUT_SELECTION: // Op 0
+        printf("\n[ * ] Saindo...\n");
         break;
 
-    default: // Opt 6 - ∞ (hehehe)
-      printf("[ ! ] Tente novamente.\n");
+    default: // Op 6 - ∞ (hehehe)
+      printf("\n[ ! ] Tente novamente.\n");
     }
 
   } while (option != EXIT_INPUT_SELECTION);
@@ -195,4 +196,4 @@ int main()
   return 0;
 }
 
-// TODO: Verificar porque o prettier não tá corrigindo o arquivo no save.
+// TODO: Verificar porque o prettier nao tá corrigindo o arquivo no save.
