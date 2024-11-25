@@ -87,19 +87,17 @@ Node *delete(Node *root, int data) {
   return root;
 }
 
-
-
-// Buuscar nó pre-ordem
+// Buscar nó pre-ordem
 void searchPreOrder(Node *head, int data)
 {
 }
 
-// Buuscar nó pre-ordem
+// Buscar nó pre-ordem
 void searchOrder(Node *head, int data)
 {
 }
 
-// Buuscar nó pre-ordem
+// Buscar nó pre-ordem
 void searchPostOrder(Node *head, int data)
 {
 }
