@@ -87,6 +87,8 @@ Node *delete(Node *root, int data) {
   return root;
 }
 
+
+// TODO: Refazer as buscas usando só uma função, parametrizada ou deixar cada um com o seu dominio? Fica aí a duvida.
 // Buscar nó pre-ordem
 void searchPreOrder(Node *root) {
   (printf("%d ", root -> data), searchPreOrder(root -> left), searchPreOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
@@ -94,38 +96,30 @@ void searchPreOrder(Node *root) {
 
 // Buscar nó em ordem
 void searchOrder(Node *root) {
-  (searchOrder(root -> left), printf("%d ", root -> data), searchOrder(root -> right))  // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
+  (searchOrder(root -> left), printf("%d ", root -> data), searchOrder(root -> right)) // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
-
 
 // Buscar nó pós-ordem
-void searchPostOrder(Node *head, int data)
-{
+void searchPostOrder(Node *root) {
+  (searchPostOrder(root -> left), searchPostOrder(root -> right), printf("%d ", root -> data)) // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
+
 
 int main()
 {
   Node *head = NULL;
   int option, value, newValue;
 
-  do
-
-  // Incluir nó
-  // Remover nó
-  // Buscar pré-ordem
-  // Buscar em ordem
-  // Buscar pós-ordem
-
-  {
+  do {
     printf("\n-------------------------------------------------------\n");
     printf("\nEscolha uma operacao:\n\n");
 
-    printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT); // Op 1
-    printf("[ %d ] Remover\n", INPUT_SELECTION_REMOVE); // Op 2
+    printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT); // Op 1 - Incluir nó
+    printf("[ %d ] Remover\n", INPUT_SELECTION_REMOVE); // Op 2 - Remover nó
 
-    printf("[ %d ] [ Buscar ] Pre-ordem\n", INPUT_SELECTION_SEARCH_PRE_ORDER);  // Op 3
-    printf("[ %d ] [ Buscar ] em ordem\n", INPUT_SELECTION_SEARCH_ORDER); // Op 4
-    printf("[ %d ] [ Buscar ] Pos-ordem\n", INPUT_SELECTION_SEARCH_POST_ORDER); // Op 5
+    printf("[ %d ] [ Buscar ] pre-ordem\n", INPUT_SELECTION_SEARCH_PRE_ORDER);  // Op 3 - Buscar pré-ordem
+    printf("[ %d ] [ Buscar ] em ordem\n", INPUT_SELECTION_SEARCH_ORDER); // Op 4 - Buscar em ordem
+    printf("[ %d ] [ Buscar ] pos-ordem\n", INPUT_SELECTION_SEARCH_POST_ORDER); // Op 5 - Buscar pós-ordem
 
     printf("\n[ %d ] Sair\n\n", EXIT_INPUT_SELECTION); // Op 0
     printf("\n-------------------------------------------------------\n");
@@ -147,46 +141,48 @@ int main()
 
     switch (option)
     {
-    case INPUT_SELECTION_INSERT: // Opt 1
-      printf("[ + ] Adicionar \n");
-      printf("[ + ] Digite o valor que quer adicionar: ");
-      scanf("%d", &value);
-      head = insert(head, value);
-      break;
+      // NOTE/TODO: Queria colcoar negrito em algumas coisas, mas tô no powershell e não funciona direito. Vejo depois (eu acho).
+      // ("TODO" adicionado pra eu pdoer achar no addon de todos)
+      case INPUT_SELECTION_INSERT: // Opt 1
+        printf("[ + ] Adicionar \n");
+        printf("[ + ] Digite o valor que quer adicionar: ");
+        scanf("%d", &value);
+        head = insert(head, value);
+        break;
 
-    case INPUT_SELECTION_REMOVE: // Opt 2
-      printf("[ - ] Apagar \n");
-      // printf("[ * ] Estes são os valores atuais: ");
-      // display(head); TODO: Add busca e listagem pra melhorar o DX/UX
-      printf("[ - ] Digite o valor que quer apagar: ");
-      scanf("%d", &value);
-      delete (&head, value);
-      break;
+      case INPUT_SELECTION_REMOVE: // Opt 2
+        printf("[ - ] Apagar \n");
+        // printf("[ * ] Estes são os valores atuais: ");
+        // display(head); TODO: Add busca e listagem pra melhorar o DX/UX
+        printf("[ - ] Digite o valor que quer apagar: ");
+        scanf("%d", &value);
+        delete (&head, value);
+        break;
 
-    case INPUT_SELECTION_SEARCH_PRE_ORDER: // Opt 3
-      printf("[ * ] Buscar PRÉ ORDEM \n");
-      printf("[ * ] Digite o valor que quer buscar: ");
-      scanf("%d", &value);
-      searchPreOrder(head, value);
-      break;
+      case INPUT_SELECTION_SEARCH_PRE_ORDER: // Opt 3
+        printf("[ * ] Buscar PRÉ ORDEM \n");
+        printf("[ * ] Digite o valor que quer buscar: ");
+        scanf("%d", &value);
+        searchPreOrder(head, value);
+        break;
 
-    case INPUT_SELECTION_SEARCH_ORDER: // Opt 4
-      printf("[ * ] Buscar EM ORDEM \n");
-      printf("[ * ] Digite o valor que quer buscar: ");
-      scanf("%d", &value);
-      searchOrder(head, value);
-      break;
+      case INPUT_SELECTION_SEARCH_ORDER: // Opt 4
+        printf("[ * ] Buscar EM ORDEM \n");
+        printf("[ * ] Digite o valor que quer buscar: ");
+        scanf("%d", &value);
+        searchOrder(head, value);
+        break;
 
-    case INPUT_SELECTION_SEARCH_POST_ORDER: // Opt 5
-      printf("[ * ] Buscar PÓS ORDEM \n");
-      printf("[ * ] Digite o valor que quer buscar: ");
-      scanf("%d", &value);
-      searchPostOrder(head, value);
-      break;
+      case INPUT_SELECTION_SEARCH_POST_ORDER: // Opt 5
+        printf("[ * ] Buscar PÓS ORDEM \n");
+        printf("[ * ] Digite o valor que quer buscar: ");
+        scanf("%d", &value);
+        searchPostOrder(head, value);
+        break;
 
-    case EXIT_INPUT_SELECTION: // Opt 0
-      printf("[ * ] Saindo...\n");
-      break;
+      case EXIT_INPUT_SELECTION: // Opt 0
+        printf("[ * ] Saindo...\n");
+        break;
 
     default: // Opt 6 - ∞ (hehehe)
       printf("[ ! ] Tente novamente.\n");
