@@ -92,13 +92,13 @@ void searchPreOrder(Node *root) {
   (printf("%d ", root -> data), searchPreOrder(root -> left), searchPreOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
-// Buscar nó pre-ordem
+// Buscar nó em ordem
 void searchOrder(Node *root) {
   (searchOrder(root -> left), printf("%d ", root -> data), searchOrder(root -> right))  // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
 
-// Buscar nó pre-ordem
+// Buscar nó pós-ordem
 void searchPostOrder(Node *head, int data)
 {
 }
