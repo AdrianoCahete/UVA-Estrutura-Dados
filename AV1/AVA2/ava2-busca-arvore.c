@@ -24,8 +24,8 @@ typedef struct Node
 
 // Utils
 Node *findMin(Node *root) {
-  while (root->left != NULL) {
-    root = root->left;
+  while (root -> left != NULL) {
+    root = root -> left;
   }
 
   return root;
@@ -40,9 +40,9 @@ Node *create(int data)
     printf("[ ! ] Erro de alocacao de memoria.\n");
     exit(1);
   }
-  newNode->data = data;
-  newNode->left = NULL;
-  newNode->right = NULL;
+  newNode -> data = data;
+  newNode -> left = NULL;
+  newNode -> right = NULL;
 
   return newNode;
 }
@@ -69,29 +69,29 @@ Node *insert(Node *root, int data)
 // Remove nó
 Node *delete(Node *root, int data) {
   if (root == NULL) {
-      printf("[ ! ] Valor %d nao encontrado.\n", data);
-      return NULL;
+    printf("    [ ! ] Valor %d nao encontrado.\n", data);
+    return NULL;
   }
 
   if (data < root -> data) {
-      root -> left = delete(root -> left, data);
+    root -> left = delete(root -> left, data);
   } else if (data > root -> data) {
-      root -> right = delete(root -> right, data);
+    root -> right = delete(root -> right, data);
   } else {
-      if (root -> left == NULL && root -> right == NULL) {
-          free(root);
-          root = NULL;
-      } else if (root -> left == NULL || root -> right == NULL) {
-          Node *temp = root -> left ? root -> left : root -> right;
-          free(root);
-          root = temp;
-      } else {
-          Node *temp = findMin(root -> right);
-          root -> data = temp -> data;
-          root -> right = delete(root -> right, temp -> data);
-      }
+    if (root -> left == NULL && root -> right == NULL) {
+      free(root);
+      root = NULL;
+    } else if (root -> left == NULL || root -> right == NULL) {
+      Node *temp = root -> left ? root -> left : root -> right;
+      free(root);
+      root = temp;
+    } else {
+      Node *temp = findMin(root -> right);
+      root -> data = temp -> data;
+      root -> right = delete(root -> right, temp -> data);
+    }
 
-      printf("[ * ] Nó com valor %d removido.\n", data);
+    printf("[ * ] No com valor %d removido.\n", data);
   }
 
   return root;
@@ -100,17 +100,33 @@ Node *delete(Node *root, int data) {
 // TODO: Refazer as buscas usando só uma função, parametrizada ou deixar cada um com o seu dominio? Fica aí a duvida.
 // Busca pre-ordem
 void searchPreOrder(Node *root) {
-  (printf("%d ", root -> data), searchPreOrder(root -> left), searchPreOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
+  if (root == NULL) {
+    return;
+  }
+
+  printf("%d ", root -> data);
+  searchPreOrder(root -> left);
+  searchPreOrder(root -> right);
 }
 
 // Busca ordem
 void searchOrder(Node *root) {
-  (searchOrder(root -> left), printf("%d ", root -> data), searchOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
+  if (root == NULL) {
+    return;
+  }
+  searchOrder(root -> left);
+  printf("%d ", root -> data);
+  searchOrder(root -> right);
 }
 
 // Busca  pós-ordem
 void searchPostOrder(Node *root) {
-  (searchPostOrder(root -> left), searchPostOrder(root -> right), printf("%d ", root -> data)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
+  if (root == NULL) {
+    return;
+  }
+  searchPostOrder(root -> left);
+  searchPostOrder(root -> right);
+  printf("%d ", root -> data);
 }
 
 int main()
@@ -125,9 +141,9 @@ int main()
     printf("[ %d ] Inserir\n", INPUT_SELECTION_INSERT); // Op 1 - Incluir nó
     printf("[ %d ] Remover\n", INPUT_SELECTION_REMOVE); // Op 2 - Remover nó
 
-    printf("[ %d ] [ Buscar ] pre-ordem\n", INPUT_SELECTION_SEARCH_PRE_ORDER);  // Op 3 - Buscar pré-ordem
-    printf("[ %d ] [ Buscar ] em ordem\n", INPUT_SELECTION_SEARCH_ORDER); // Op 4 - Buscar em ordem
-    printf("[ %d ] [ Buscar ] pos-ordem\n", INPUT_SELECTION_SEARCH_POST_ORDER); // Op 5 - Buscar pós-ordem
+    printf("[ %d ] [ Buscar ] Pre-ordem\n", INPUT_SELECTION_SEARCH_PRE_ORDER);  // Op 3 - Buscar pré-ordem
+    printf("[ %d ] [ Buscar ] Em ordem\n", INPUT_SELECTION_SEARCH_ORDER); // Op 4 - Buscar em ordem
+    printf("[ %d ] [ Buscar ] Pos-ordem\n", INPUT_SELECTION_SEARCH_POST_ORDER); // Op 5 - Buscar pós-ordem
 
     printf("\n[ %d ] Sair\n\n", EXIT_INPUT_SELECTION); // Op 0
     printf("\n-------------------------------------------------------\n");
@@ -160,7 +176,7 @@ int main()
 
       case INPUT_SELECTION_REMOVE: // Op 2
         printf("\n[ - ] Apagar\n");
-        printf("[ * ] Estes são os valores atuais: ");
+        printf("[ * ] Estes sao os valores atuais: ");
         // display(root); TODO: Add busca e listagem pra melhorar o DX/UX
         searchOrder(root);
         printf("\n[ - ] Digite o valor que quer apagar: ");
@@ -169,17 +185,17 @@ int main()
         break;
 
       case INPUT_SELECTION_SEARCH_PRE_ORDER: // Op 3
-        printf("\n[ * ] Buscar PRE ORDEM \n");
+        printf("\n[ * ] Busca em PRE ORDEM: ");
         searchPreOrder(root);
         break;
 
       case INPUT_SELECTION_SEARCH_ORDER: // Op 4
-        printf("\n[ * ] Buscar EM ORDEM \n");
+        printf("\n[ * ] Busca EM ORDEM: ");
         searchOrder(root);
         break;
 
       case INPUT_SELECTION_SEARCH_POST_ORDER: // Op 5
-        printf("\n[ * ] Buscar POS ORDEM \n");
+        printf("\n[ * ] Busca em POS ORDEM: ");
         searchPostOrder(root);
         break;
 
