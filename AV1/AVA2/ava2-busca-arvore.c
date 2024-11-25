@@ -41,14 +41,14 @@ Node *createNode(int data)
 Node *insert(Node *head, int data)
 {
   if (head == NULL) {
-      printf("    [ * ] Valor '%d' inserido na arvore.\n", data);
-      return createNode(data);
+    printf("    [ * ] Valor '%d' inserido na arvore.\n", data);
+    return createNode(data);
   }
 
   if (data < head -> data) {
-      head -> left = insert(head -> left, data);
+    head -> left = insert(head -> left, data);
   } else if (data > head -> data) {
-      head -> right = insert(head -> right, data);
+    head -> right = insert(head -> right, data);
   } else {
     printf("    [ ! ] Valor '%d' ja existe na arvore.\n", data);
   }
@@ -68,15 +68,15 @@ Node *delete(Node *root, int data) {
   } else if (data > root -> data) {
       root -> right = deleteNode(root -> right, data);
   } else {
-      if (root -> left == NULL && root -> right == NULL) { // Caso 1: Nó folha
+      if (root -> left == NULL && root -> right == NULL) {
           free(root);
           root = NULL;
-      } else if (root -> left == NULL || root -> right == NULL) { // Caso 2: Um filho
+      } else if (root -> left == NULL || root -> right == NULL) {
           Node *temp = root -> left ? root -> left : root -> right;
           free(root);
           root = temp;
       } else { // Caso 3: Dois filhos
-          Node *temp = findMin(root -> right); // Encontra o sucessor
+          Node *temp = findMin(root -> right);
           root -> data = temp -> data;
           root -> right = deleteNode(root -> right, temp -> data);
       }
@@ -147,37 +147,30 @@ int main()
         printf("[ + ] Adicionar \n");
         printf("[ + ] Digite o valor que quer adicionar: ");
         scanf("%d", &value);
-        head = insert(head, value);
+        root = insert(root, value);
         break;
 
       case INPUT_SELECTION_REMOVE: // Opt 2
-        printf("[ - ] Apagar \n");
+        printf("[ - ] Apagar\n");
         // printf("[ * ] Estes são os valores atuais: ");
         // display(head); TODO: Add busca e listagem pra melhorar o DX/UX
         printf("[ - ] Digite o valor que quer apagar: ");
-        scanf("%d", &value);
-        delete (&head, value);
+        root = removeNode(root, value);
         break;
 
       case INPUT_SELECTION_SEARCH_PRE_ORDER: // Opt 3
         printf("[ * ] Buscar PRÉ ORDEM \n");
-        printf("[ * ] Digite o valor que quer buscar: ");
-        scanf("%d", &value);
-        searchPreOrder(head, value);
+        searchPreOrder(root);
         break;
 
       case INPUT_SELECTION_SEARCH_ORDER: // Opt 4
         printf("[ * ] Buscar EM ORDEM \n");
-        printf("[ * ] Digite o valor que quer buscar: ");
-        scanf("%d", &value);
-        searchOrder(head, value);
+        searchOrder(root);
         break;
 
       case INPUT_SELECTION_SEARCH_POST_ORDER: // Opt 5
         printf("[ * ] Buscar PÓS ORDEM \n");
-        printf("[ * ] Digite o valor que quer buscar: ");
-        scanf("%d", &value);
-        searchPostOrder(head, value);
+        searchPostOrder(root);
         break;
 
       case EXIT_INPUT_SELECTION: // Opt 0
@@ -192,3 +185,5 @@ int main()
 
   return 0;
 }
+
+// TODO: Verificar porque o prettier não tá corrigindo o arquivo no save.

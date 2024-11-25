@@ -4,7 +4,7 @@
   "tasks": [
     {
       "label": "[C/C++] Build current file",
-      "type": "cppbuild",
+      "type": "shell",
       "command": "C:\\ProgramFiles\\MinGW\\bin\\gcc.exe",
       "args": [
         "-fdiagnostics-color=always",
@@ -16,7 +16,7 @@
       "options": {
         "cwd": "C:\\ProgramFiles\\MinGW\\bin"
       },
-      "problemMatcher": ["$gcc"],
+      "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": true
