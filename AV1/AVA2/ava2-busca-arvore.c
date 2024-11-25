@@ -64,9 +64,9 @@ Node *delete(Node *root, int data) {
   }
 
   if (data < root -> data) {
-      root -> left = deleteNode(root -> left, data);
+      root -> left = delete(root -> left, data);
   } else if (data > root -> data) {
-      root -> right = deleteNode(root -> right, data);
+      root -> right = delete(root -> right, data);
   } else {
       if (root -> left == NULL && root -> right == NULL) {
           free(root);
@@ -78,7 +78,7 @@ Node *delete(Node *root, int data) {
       } else { // Caso 3: Dois filhos
           Node *temp = findMin(root -> right);
           root -> data = temp -> data;
-          root -> right = deleteNode(root -> right, temp -> data);
+          root -> right = delete(root -> right, temp -> data);
       }
 
       printf("[ * ] Nó com valor %d removido.\n", data);
@@ -102,6 +102,15 @@ void searchOrder(Node *root) {
 // Buscar nó pós-ordem
 void searchPostOrder(Node *root) {
   (searchPostOrder(root -> left), searchPostOrder(root -> right), printf("%d ", root -> data)) // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
+}
+
+// Utils
+Node *findMin(Node *root) {
+  while (root->left != NULL) {
+    root = root->left;
+  }
+
+  return root;
 }
 
 
@@ -155,7 +164,7 @@ int main()
         // printf("[ * ] Estes são os valores atuais: ");
         // display(head); TODO: Add busca e listagem pra melhorar o DX/UX
         printf("[ - ] Digite o valor que quer apagar: ");
-        root = removeNode(root, value);
+        root = delete(root, value);
         break;
 
       case INPUT_SELECTION_SEARCH_PRE_ORDER: // Opt 3
