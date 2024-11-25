@@ -38,22 +38,22 @@ Node *createNode(int data)
   return newNode;
 }
 
-Node *insert(Node *head, int data)
+Node *insert(Node *root, int data)
 {
-  if (head == NULL) {
+  if (root == NULL) {
     printf("    [ * ] Valor '%d' inserido na arvore.\n", data);
     return createNode(data);
   }
 
-  if (data < head -> data) {
-    head -> left = insert(head -> left, data);
-  } else if (data > head -> data) {
-    head -> right = insert(head -> right, data);
+  if (data < root -> data) {
+    root -> left = insert(root -> left, data);
+  } else if (data > root -> data) {
+    root -> right = insert(root -> right, data);
   } else {
     printf("    [ ! ] Valor '%d' ja existe na arvore.\n", data);
   }
 
-  return head;
+  return root;
 }
 
 // Remover nó
@@ -96,12 +96,12 @@ void searchPreOrder(Node *root) {
 
 // Buscar nó em ordem
 void searchOrder(Node *root) {
-  (searchOrder(root -> left), printf("%d ", root -> data), searchOrder(root -> right)) // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
+  (searchOrder(root -> left), printf("%d ", root -> data), searchOrder(root -> right)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
 // Buscar nó pós-ordem
 void searchPostOrder(Node *root) {
-  (searchPostOrder(root -> left), searchPostOrder(root -> right), printf("%d ", root -> data)) // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
+  (searchPostOrder(root -> left), searchPostOrder(root -> right), printf("%d ", root -> data)); // TODO: Isso tá horrivel de ler, mas funciona. Isso que dá deixar pro ultimo dia.
 }
 
 // Utils
@@ -116,7 +116,7 @@ Node *findMin(Node *root) {
 
 int main()
 {
-  Node *head = NULL;
+  Node *root = NULL;
   int option, value, newValue;
 
   do {
@@ -162,7 +162,7 @@ int main()
       case INPUT_SELECTION_REMOVE: // Opt 2
         printf("[ - ] Apagar\n");
         // printf("[ * ] Estes são os valores atuais: ");
-        // display(head); TODO: Add busca e listagem pra melhorar o DX/UX
+        // display(root); TODO: Add busca e listagem pra melhorar o DX/UX
         printf("[ - ] Digite o valor que quer apagar: ");
         root = delete(root, value);
         break;
